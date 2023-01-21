@@ -2,6 +2,7 @@ import { data } from "../data";
 import Navbar from "./Navbar";
 import MovieCard from "./MovieCard";
 import React from "react";
+import { addMovies } from "../actions";
 
 class App extends React.Component {
   componentDidMount() {
@@ -11,13 +12,8 @@ class App extends React.Component {
       // try not to use this (this = store here)
       this.forceUpdate();
     });
-    // make an api call over here (fetching the data: sideEffect : useEffect())
-    // dispatch an action
-
-    store.dispatch({
-      type: "ADD_MOVIES",
-      movies: data,
-    });
+    // fetch the data using api call & dispatch an action to the reducer
+    store.dispatch(addMovies(data));
 
     console.log("state", this.props.store.getState());
   }
