@@ -6,17 +6,16 @@ import { addMovies } from "../actions";
 
 class App extends React.Component {
   componentDidMount() {
+    // fetch the data using api call & dispatch an action to the reducer(perform SIDE-effects)
     const { store } = this.props;
     store.subscribe(() => {
       console.log("Updated");
-      // try not to use this (this = store here)
+      // try not to use this (this = App here)
       this.forceUpdate();
       console.log("state", this.props.store.getState());
     });
-    // fetch the data using api call & dispatch an action to the reducer
+    // we are getting this data here from the data file
     store.dispatch(addMovies(data));
-
-    console.log("state", this.props.store.getState());
   }
 
   isMovieFavourite = (movie) => {

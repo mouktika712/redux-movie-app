@@ -1,4 +1,4 @@
-import { ADD_FAVOURITES, ADD_MOVIES } from "../actions";
+import { ADD_FAVOURITES, ADD_MOVIES, REMOVE_FROM_FAVOURITES } from "../actions";
 
 const initialMoviesState = {
   list: [],
@@ -7,15 +7,7 @@ const initialMoviesState = {
 
 /*Using default arguments: which will also be used as initial state by the store*/
 export default function movies(state = initialMoviesState, action) {
-  // if (action.type === ADD_MOVIES) {
-  //   return {
-  //     ...state,
-  //     list: action.movies
-  //   };
-  // }
-
-  // return state;
-
+  // Creating a new state based on the action-data  and the action.type
   switch (action.type) {
     case ADD_MOVIES:
       return {
@@ -27,6 +19,14 @@ export default function movies(state = initialMoviesState, action) {
       return {
         ...state,
         favourites: [action.movie, ...state.favourites],
+      };
+    case REMOVE_FROM_FAVOURITES:
+      const fav = state.favourites.filter((movie) => {
+        return movie !== action.movie;
+      });
+      return {
+        ...state,
+        favourites: fav,
       };
     default:
       return state;
