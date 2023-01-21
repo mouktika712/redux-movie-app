@@ -1,4 +1,9 @@
-import { ADD_FAVOURITES, ADD_MOVIES, REMOVE_FROM_FAVOURITES, SHOW_FAVOURITES_TAB } from "../actions";
+import {
+  ADD_FAVOURITES,
+  ADD_MOVIES,
+  REMOVE_FROM_FAVOURITES,
+  SHOW_FAVOURITES_TAB,
+} from "../actions";
 
 const initialMoviesState = {
   list: [],
@@ -7,7 +12,7 @@ const initialMoviesState = {
 };
 
 /*Using default arguments: which will also be used as initial state by the store*/
-export default function movies(state = initialMoviesState, action) {
+export function movies(state = initialMoviesState, action) {
   // Creating a new state based on the action-data  and the action.type
   switch (action.type) {
     case ADD_MOVIES:
@@ -37,4 +42,23 @@ export default function movies(state = initialMoviesState, action) {
     default:
       return state;
   }
+}
+
+const initialSerachState = {
+  result: {},
+};
+export function search(state = initialSerachState, action) {
+  return state;
+}
+
+const initialRootState = {
+  movies: initialMoviesState,
+  search: initialSerachState,
+};
+
+export default function rootReducer(state = initialRootState, action) {
+  return {
+    movies: movies(state.movies, action),
+    search: search(state.search, action),
+  };
 }

@@ -7,10 +7,11 @@ import { legacy_createStore as createStore } from "redux";
 import "./index.css";
 import App from "./components/App";
 import movies from "./reducers";
+import rootReducer from "./reducers";
 
 // createStore will internally call the reducer (movies) where it will get its initial state from the reducer args
 // now we will pass this as props to app
-const store = createStore(movies);
+const store = createStore(rootReducer);
 
 // console.log("store", store);
 // console.log("BEFORE STATE", store.getState());
