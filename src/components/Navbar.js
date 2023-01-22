@@ -33,7 +33,9 @@ class Navbar extends React.Component {
       <div className="nav">
         <div className="search-container">
           <input onChange={(e) => this.handleChange(e)} />
-          <button id="search-btn">Search</button>
+          <button id="search-btn" onClick={this.handleSearch}>
+            Search
+          </button>
         </div>
       </div>
     );
