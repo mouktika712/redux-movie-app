@@ -9,25 +9,27 @@ import App from "./components/App";
 import rootReducer from "./reducers";
 
 //CURRIED-form of: function logger(obj, next, action)
-const logger = ({dispatch, getState}) => (next) => (action) => {
-  console.log('ACTION_TYPE', action.type);
-  next(action);
-}
+const logger =
+  ({ dispatch, getState }) =>
+  (next) =>
+  (action) => {
+    console.log("ACTION_TYPE", action.type);
+    next(action);
+  };
+
+const thunk =
+  ({ dispatch, getState }) =>
+  (next) =>
+  (action) => {
+    if (typeof action === "function") {
+      action(dispatch);
+    }
+    next(action);
+  };
 
 // createStore will internally call the reducer (movies) where it will get its initial state from the reducer args
 // now we will pass this as props to app
-const store = createStore(rootReducer, applyMiddleware(logger));
-
-// console.log("store", store);
-// console.log("BEFORE STATE", store.getState());
-
-// // Dispatching an "Action" to the reducer: store.dispatch(action obj)
-// store.dispatch({
-//   type: "ADD_MOVIES",
-//   movies: [{ name: "Superman" }],
-// });
-
-// console.log("AFTER STATE", store.getState());
+const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
