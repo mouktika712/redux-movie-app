@@ -1,17 +1,26 @@
 // Keep package imports on the top
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { legacy_createStore as createStore } from "redux";
+import { legacy_createStore as createStore, applyMiddleware } from "redux";
 
 // File imports below
 import "./index.css";
 import App from "./components/App";
-import movies from "./reducers";
 import rootReducer from "./reducers";
+
+//CURRIED-form of: function logger(obj, next, action)
+const logger = function ({ dispatch, getState }) {
+  return function (next) {
+    return function (action) {
+      // middleware code
+      console.log("ACTION_TYPE", action.type);
+    };
+  };
+};
 
 // createStore will internally call the reducer (movies) where it will get its initial state from the reducer args
 // now we will pass this as props to app
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(logger));
 
 // console.log("store", store);
 // console.log("BEFORE STATE", store.getState());

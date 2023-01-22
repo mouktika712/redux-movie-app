@@ -13,7 +13,7 @@ const initialMoviesState = {
 };
 
 /*Using default arguments: which will also be used as initial state by the store*/
-export function movies(state = initialMoviesState, action) {
+export function moviesReducer(state = initialMoviesState, action) {
   // Creating a new state based on the action-data  and the action.type
   switch (action.type) {
     case ADD_MOVIES:
@@ -48,7 +48,7 @@ export function movies(state = initialMoviesState, action) {
 const initialSerachState = {
   result: {},
 };
-export function search(state = initialSerachState, action) {
+export function searchReducer(state = initialSerachState, action) {
   return state;
 }
 
@@ -70,6 +70,6 @@ export default function rootReducer(state = initialRootState, action) {
 
 // redux in-built function to combine the reducers (internally called the same way like above state.movies)
 export default combineReducers({
-  movies, //short-hand
-  search,
+  movies: moviesReducer, //you can use short-hand if names are same
+  search: searchReducer,
 });
