@@ -25,11 +25,21 @@ const logger =
 const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 
 export const StoreContext = createContext();
+class Provider extends React.Component {
+  render() {
+    const { store } = this.props;
+    return (
+      <StoreContext.Provider value={store}>
+        {this.props.children}
+      </StoreContext.Provider>
+    );
+  }
+}
 
 // value prop is a default prop...name cannot be changed
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <StoreContext.Provider value={store}>
-    <App store={store} />
-  </StoreContext.Provider>
+  <Provider store={store}>
+    <App />
+  </Provider>
 );
