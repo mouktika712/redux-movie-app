@@ -36,7 +36,7 @@ const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <App store={store} />
-  </React.StrictMode>
+  // </React.StrictMode>
 );

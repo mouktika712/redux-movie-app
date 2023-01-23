@@ -2,8 +2,10 @@ import { combineReducers } from "redux";
 import {
   ADD_FAVOURITES,
   ADD_MOVIES,
+  ADD_SEARCH_RESULT,
   REMOVE_FROM_FAVOURITES,
   SHOW_FAVOURITES_TAB,
+  ADD_MOVIE_TO_LIST,
 } from "../actions";
 
 const initialMoviesState = {
@@ -40,6 +42,12 @@ export function moviesReducer(state = initialMoviesState, action) {
         ...state,
         showFavouritesTab: action.value,
       };
+
+    case ADD_MOVIE_TO_LIST:
+      return {
+        ...state,
+        list: [action.movie, ...state.list],
+      };
     default:
       return state;
   }
@@ -47,26 +55,26 @@ export function moviesReducer(state = initialMoviesState, action) {
 
 const initialSerachState = {
   result: {},
+  showSearchResults: false,
 };
 export function searchReducer(state = initialSerachState, action) {
-  return state;
+  switch (action.type) {
+    case ADD_SEARCH_RESULT:
+      return {
+        ...state,
+        result: action.movie,
+        showSearchResults: true,
+      };
+      case ADD_MOVIE_TO_LIST:
+      return {
+        ...state,
+        showSearchResults: false
+      };
+
+    default:
+      return state;
+  }
 }
-
-/*
-// Manual method to combine the reducers
-const initialRootState = {
-  movies: initialMoviesState,
-  search: initialSerachState,
-};
-
-
-export default function rootReducer(state = initialRootState, action) {
-  return {
-    movies: movies(state.movies, action),
-    search: search(state.search, action),
-  };
-}
-*/
 
 // redux in-built function to combine the reducers (internally called the same way like above state.movies)
 export default combineReducers({
