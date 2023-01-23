@@ -1,5 +1,5 @@
 // Keep package imports on the top
-import React from "react";
+import React, { createContext } from "react";
 import ReactDOM from "react-dom/client";
 import { legacy_createStore as createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
@@ -20,23 +20,16 @@ const logger =
     next(action);
   };
 
-// const thunk =
-//   ({ dispatch, getState }) =>
-//   (next) =>
-//   (action) => {
-//     if (typeof action === "function") {
-//       action(dispatch);
-//     }
-//     next(action);
-//   };
-
 // createStore will internally call the reducer (movies) where it will get its initial state from the reducer args
 // now we will pass this as props to app
 const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 
+export const StoreContext = createContext();
+
+// value prop is a default prop...name cannot be changed
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  // <React.StrictMode>
+  <StoreContext.Provider value={store}>
     <App store={store} />
-  // </React.StrictMode>
+  </StoreContext.Provider>
 );

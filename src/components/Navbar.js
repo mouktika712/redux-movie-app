@@ -13,12 +13,15 @@ class Navbar extends React.Component {
     this.props.dispatch(addMovieToList(movie));
     this.setState({
       showSearchResults: false,
+      searchText: "",
     });
   };
 
   handleSearch = () => {
     const { searchText } = this.state;
-
+    if (!searchText) {
+      return;
+    }
     this.props.dispatch(handleMovieSearch(searchText));
   };
 
@@ -29,10 +32,11 @@ class Navbar extends React.Component {
   };
   render() {
     const { result: movie, showSearchResults } = this.props.search;
+    const { searchText } = this.state;
     return (
       <div className="nav">
         <div className="search-container">
-          <input onChange={this.handleChange} />
+          <input onChange={this.handleChange} value={searchText} />
           <button id="search-btn" onClick={this.handleSearch}>
             Search
           </button>
