@@ -1,7 +1,6 @@
 import React from "react";
-// import { connect } from "react-redux";
+import { connect } from "react-redux";
 import { addMovies, showFavourites } from "../actions";
-import { connect } from "..";
 import { data } from "../data";
 import Navbar from "./Navbar";
 import MovieCard from "./MovieCard";
