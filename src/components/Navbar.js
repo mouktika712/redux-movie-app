@@ -1,5 +1,5 @@
 import React from "react";
-import { StoreContext } from "..";
+import { connect } from "..";
 import { addMovieToList, handleMovieSearch } from "../actions";
 
 class Navbar extends React.Component {
@@ -61,14 +61,18 @@ class Navbar extends React.Component {
   }
 }
 
-class NavbarWrapper extends React.Component {
-  render() {
-    return (
-      <StoreContext.Consumer>
-        {(store) => <Navbar dispatch={store.dispatch} search={this.props.search} />}
-      </StoreContext.Consumer>
-    );
-  }
-}
+// class NavbarWrapper extends React.Component {
+//   render() {
+//     return (
+//       <StoreContext.Consumer>
+//         {(store) => <Navbar dispatch={store.dispatch} search={this.props.search} />}
+//       </StoreContext.Consumer>
+//     );
+//   }
+// }
+// destructuring the sraech from store in the args itself
+const mapStateToProps = ({ search }) => ({
+  search,
+});
 
-export default NavbarWrapper;
+export default connect(mapStateToProps)(Navbar);

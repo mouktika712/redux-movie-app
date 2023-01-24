@@ -27,13 +27,13 @@ class App extends React.Component {
   };
 
   render() {
-    const { movies, search } = this.props;
+    const { movies} = this.props;
     const { favourites, list, showFavouritesTab } = movies;
     const displayList = showFavouritesTab ? favourites : list;
 
     return (
       <div className="App">
-        <Navbar search={search} />
+        <Navbar />
         <div className="main">
           <div className="tabs">
             <div
